@@ -28,6 +28,19 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    category = Category.find(params[:id])
+    category.destroy
+  
+    respond_to do |format|
+      format.turbo_stream do
+        render(turbo_stream: turbo_stream.remove(category))
+      end
+
+      format.html { redirect_to(action: :index) }
+    end
+  end
+
   private
 
   def category_params
