@@ -1,11 +1,6 @@
 <h1>新しいカテゴリ</h1>
 <%= turbo_frame_tag('new_category', target: '_top') do %>
-  <%= form_with(model: @category) do |form| %>
-    <div>
-      <%= form.text_field(:name) %>
-      <%= form.submit('送信') %>
-    </div>
-  <% end %>
+  <%= render(partial: 'categories/form', locals: { category: @category }) %>
 <% end %>
 
 <h1>カテゴリ一覧</h1>

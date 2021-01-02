@@ -1,4 +1,6 @@
 <div id="<%= dom_id category %>">
   <%= category.name %>
   <%= button_to('削除', category_path(category), method: :delete) %>
+
+  <%= button_to('編集', edit_category_path(category), method: :get) %>
 </div>

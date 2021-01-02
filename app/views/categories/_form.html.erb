@@ -1,0 +1,8 @@
+<div id="<%= dom_id category %>"><!-- update後に戻るのにidの指定が必要 -->
+  <%= form_with(model: category) do |form| %>
+    <div>
+      <%= form.text_field(:name) %>
+      <%= form.submit('送信') %>
+    </div>
+  <% end %>
+</div>

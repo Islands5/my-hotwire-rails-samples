@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :set_category, only: %i[edit update]
+
   def index
     @categories = Category.all
     @category = Category.new
@@ -28,6 +30,40 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def edit
+    respond_to do |format|
+      format.turbo_stream do
+        render(turbo_stream:
+          turbo_stream.replace(
+            @category,
+            partial: 'categories/form',
+            locals: { category: @category }
+          )
+        )
+      end
+
+      format.html # editにリダイレクトしてもらう
+    end
+  end
+
+  def update
+    @category.update(category_params)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render(
+          turbo_stream:
+            turbo_stream.replace(
+              @category,
+              partial: "categories/category",
+              locals: { category: @category }
+            )
+        )
+      end
+      format.html { redirect_to(action: :index) }
+    end
+  end
+
   def destroy
     category = Category.find(params[:id])
     category.destroy
@@ -45,5 +81,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def set_category
+    @category = Category.find(params[:id])
   end
 end
