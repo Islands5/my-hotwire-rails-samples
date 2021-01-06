@@ -13,12 +13,13 @@ class CategoriesController < ApplicationController
       # この辺りの仕様をみると何がしたいかわかる https://turbo.hotwire.dev/handbook/streams
       format.turbo_stream do
         render(
-          turbo_stream:
-            turbo_stream.append(
-              :categories,
-              partial: "categories/category",
-              locals: { category: category }
-            )
+          turbo_stream: ''
+            # モデル側でbroadcastするので、2重登録になるためコメント
+            # turbo_stream.append(
+            #   :categories,
+            #   partial: "categories/category",
+            #   locals: { category: category }
+            # )
         )
       end
 
@@ -52,12 +53,13 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render(
-          turbo_stream:
-            turbo_stream.replace(
-              @category,
-              partial: "categories/category",
-              locals: { category: @category }
-            )
+          turbo_stream: ''
+            # 
+            # turbo_stream.replace(
+            #   @category,
+            #   partial: "categories/category",
+            #   locals: { category: @category }
+            # )
         )
       end
       format.html { redirect_to(action: :index) }
@@ -70,7 +72,9 @@ class CategoriesController < ApplicationController
   
     respond_to do |format|
       format.turbo_stream do
-        render(turbo_stream: turbo_stream.remove(category))
+        render(turbo_stream: ''
+          #turbo_stream.remove(category)
+        )
       end
 
       format.html { redirect_to(action: :index) }

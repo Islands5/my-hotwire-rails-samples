@@ -1,3 +1,4 @@
+<%= turbo_stream_from category %>
 <div id="<%= dom_id category %>">
   <%= category.name %>
   <%= button_to('削除', category_path(category), method: :delete) %>

@@ -4,6 +4,7 @@
 <% end %>
 
 <h1>カテゴリ一覧</h1>
+<%= turbo_stream_from('categories') %>
 <div id="categories"><!-- ここのidがキー、categoriesになることによってリアルタイム更新される -->
   <%= render(partial: 'categories/category', collection: @categories) %>
 </div>
